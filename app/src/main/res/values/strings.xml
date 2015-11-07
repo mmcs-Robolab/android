@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Robolab</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loginText">Login</string>
+    <string name="passText">Password</string>
+    <string name="signInBtn">Sign in</string>
 </resources>
