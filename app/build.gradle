@@ -17,10 +17,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/asl2.0'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice'
+    }
+    useLibrary 'org.apache.http.legacy'
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+//    testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.0'
+    compile 'com.mcxiaoke.volley:library:1.0.17'
+    compile 'com.fasterxml:jackson-module-json-org:0.9.1'
+
+    compile 'org.apache.directory.studio:org.apache.commons.io:2.4'
 }
