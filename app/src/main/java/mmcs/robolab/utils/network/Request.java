@@ -11,10 +11,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 
-public class Query {
+public class Request {
     protected static DefaultHttpClient client = null;
 
     protected ArrayList<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -52,19 +53,23 @@ public class Query {
         GET, POST
     }
 
-    public Query(String path, Method requestMethod) {
+    public static Request create(String path, Method requestMethod) {
+        return new Request(path, requestMethod);
+    }
+
+    public Request(String path, Method requestMethod) {
         initCookieHandler();
 
         this.path = path;
         this.method = requestMethod;
     }
 
-    public Query addParam(String name, String val) {
+    public Request addParam(String name, String val) {
         params.add(new BasicNameValuePair(name, val));
         return this;
     }
 
-
+    // warning: don't run in GUI thread
     public Response execute() {
         try {
             String url = URL.buildUrl(path);
@@ -77,7 +82,7 @@ public class Query {
             Integer respCode = response.getStatusLine().getStatusCode();
             return new Response(result, respCode);
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             return Response.getUndefined();
         }
     }
