@@ -56,6 +56,18 @@
             android:layout_weight="0.00"
             android:textColor="#fff" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:layout_marginBottom="0dp"
+            android:text="Неверный логин или пароль"
+            android:id="@+id/errText"
+            android:textColor="#f83d3d"
+            android:textSize="20dp"
+            android:textAlignment="center"
+            android:visibility="invisible" />
+
     </LinearLayout>
 
 </RelativeLayout>
