@@ -46,7 +46,7 @@ public class AuthActivity extends AppCompatActivity {
     protected void signIn(final String login, final String pass) {
         new AsyncTask<Void, Void, Integer>() {
             protected Integer doInBackground(Void... e) {
-                Response auth = user.SignIn(new Auth(login, pass));
+                Response auth = user.signIn(new Auth(login, pass));
                 return auth.code;
             }
 

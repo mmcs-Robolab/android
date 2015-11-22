@@ -6,6 +6,8 @@ import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import mmcs.robolab.R;
+import mmcs.robolab.models.user.User;
+import mmcs.robolab.utils.network.Response;
 
 public class LogoActivity extends AppCompatActivity {
 
@@ -18,11 +20,14 @@ public class LogoActivity extends AppCompatActivity {
         getWorker(handler).start();
     }
 
-    private Runnable getRespondent() {
+    private Runnable getRespondent(final Response resp) {
         return new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(LogoActivity.this, AuthActivity.class);
+                Intent intent = new Intent(
+                    LogoActivity.this,
+                    resp.isSuccess() ? MainActivity.class : AuthActivity.class
+                );
                 startActivity(intent);
                 finish();
             }
@@ -33,13 +38,12 @@ public class LogoActivity extends AppCompatActivity {
         return new Thread() {
             @Override
             public void run() {
-                doBackgroundWork();
-                handler.post(LogoActivity.this.getRespondent());
+                Response resp = doBackgroundWork();
+                handler.post(LogoActivity.this.getRespondent(resp));
             }
 
-            private void doBackgroundWork() {
-                // todo: load last user
-                SystemClock.sleep(2000);
+            private Response doBackgroundWork() {
+                return User.getInstance().remember();
             }
         };
     }

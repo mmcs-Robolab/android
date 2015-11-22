@@ -30,11 +30,11 @@ public class User {
     @NonNull
     public Response remember() {
         Auth last = UserDB.getLast();
-        return SignIn(last);
+        return signIn(last);
     }
 
     @NonNull
-    public Response SignIn(final Auth data) {
+    public Response signIn(final Auth data) {
         if (data == null) {
             return Response.getUndefined();
         }
@@ -53,10 +53,12 @@ public class User {
     }
 
     @NonNull
-    public Response LogOut() {
+    public Response logout() {
         Response resp = Request
             .create("auth/logout", Request.Method.POST)
             .execute();
+        UserDB.resetLast();
+
         return resp;
     }
 

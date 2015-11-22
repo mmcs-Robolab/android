@@ -86,6 +86,14 @@
                 android:layout_marginLeft="20dp"
                 android:id="@+id/controlImg"
                 android:src="@drawable/control" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/exitBtn"
+                android:src="@drawable/control"
+                android:onClick="onExitClick" />
         </LinearLayout>
 
     </LinearLayout>
