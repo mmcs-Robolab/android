@@ -1,5 +1,7 @@
 package mmcs.robolab.utils.network;
 
+import android.support.annotation.NonNull;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -22,13 +24,14 @@ public class Request {
     protected Method method;
     protected String path;
 
-
     private void initCookieHandler() {
         if (client == null) {
             client = new DefaultHttpClient();
         }
     }
 
+    // TODO: 11/22/2015 check non null
+    @NonNull
     private HttpRequestBase formGet(String url) {
         if(!params.isEmpty() && !url.endsWith("?")) {
             url += "?";
@@ -37,6 +40,8 @@ public class Request {
         return new HttpGet(url + paramString);
     }
 
+    // TODO: 11/22/2015 check non null
+    @NonNull
     private HttpRequestBase formPost(String url) throws UnsupportedEncodingException {
         HttpPost httppost = new HttpPost(url);
         httppost.setEntity(new UrlEncodedFormEntity(params));
@@ -53,6 +58,7 @@ public class Request {
         GET, POST
     }
 
+    @NonNull
     public static Request create(String path, Method requestMethod) {
         return new Request(path, requestMethod);
     }
@@ -64,12 +70,14 @@ public class Request {
         this.method = requestMethod;
     }
 
+    @NonNull
     public Request addParam(String name, String val) {
         params.add(new BasicNameValuePair(name, val));
         return this;
     }
 
     // warning: don't run in GUI thread
+    @NonNull
     public Response execute() {
         try {
             String url = URL.buildUrl(path);

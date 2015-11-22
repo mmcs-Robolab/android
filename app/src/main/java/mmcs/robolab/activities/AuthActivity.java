@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import mmcs.robolab.R;
 import mmcs.robolab.utils.network.Response;
-import mmcs.robolab.models.User;
+import mmcs.robolab.models.user.User;
+import mmcs.robolab.models.user.Auth;
 
 
 public class AuthActivity extends AppCompatActivity {
@@ -45,7 +46,7 @@ public class AuthActivity extends AppCompatActivity {
     protected void signIn(final String login, final String pass) {
         new AsyncTask<Void, Void, Integer>() {
             protected Integer doInBackground(Void... e) {
-                Response auth = user.SignIn(new User.Auth(login, pass));
+                Response auth = user.SignIn(new Auth(login, pass));
                 return auth.code;
             }
 
