@@ -4,12 +4,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.Console;
 
 import mmcs.robolab.R;
 import mmcs.robolab.utils.network.Request;
@@ -61,7 +59,10 @@ public class AuthActivity extends AppCompatActivity {
                 String login = loginText.getText().toString();
                 String pass = passText.getText().toString();
 
-                signIn(login,pass);
+                Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+              //  signIn(login,pass);
             }
         });
     }

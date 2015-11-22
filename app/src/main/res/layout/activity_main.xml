@@ -14,14 +14,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#e6e5e5"
-            android:id="@+id/relativeLayout"
-            android:layout_weight="0.05">
+            android:id="@+id/topLayout"
+            android:layout_weight="0.11">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:id="@+id/textView"
+                android:id="@+id/nameText"
                 android:layout_marginLeft="34dp"
                 android:layout_marginStart="34dp"
                 android:layout_marginTop="30dp"
@@ -36,61 +36,31 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Студент"
-                android:id="@+id/textView2"
-                android:layout_below="@+id/textView"
-                android:layout_alignLeft="@+id/textView"
-                android:layout_alignStart="@+id/textView" />
+                android:id="@+id/roleText"
+                android:layout_below="@+id/nameText"
+                android:layout_alignLeft="@+id/nameText"
+                android:layout_alignStart="@+id/nameText" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#919191"
+                android:id="@+id/view2"
+                android:layout_below="@+id/roleText"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
         </RelativeLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1"
-            android:layout_below="@+id/relativeLayout"
-            android:layout_alignLeft="@+id/relativeLayout"
-            android:layout_alignStart="@+id/relativeLayout"
-            android:id="@+id/content"
-            android:layout_weight="0.93">
-
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#919191"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/deviceBtn"
-                android:layout_weight="0.03"
-                android:text="Устройства"
-                android:textColor="#1f1f1f"
-                android:textSize="20dp" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#919191" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="10dp"
-                android:id="@+id/robotBtn"
-                android:layout_weight="0.03"
-                android:text="Роботы"
-                android:textColor="#1f1f1f"
-                android:textSize="20dp" />
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#919191" />
-
-        </LinearLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="432dp"
+            android:layout_below="@+id/roleText"
+            android:layout_alignRight="@+id/nameText"
+            android:layout_alignEnd="@+id/nameText"
+            android:layout_weight="0.85"
+            android:id="@+id/content"></FrameLayout>
 
         <LinearLayout
             android:orientation="horizontal"
@@ -100,14 +70,22 @@
             android:layout_below="@+id/content"
             android:layout_alignLeft="@+id/content"
             android:layout_alignStart="@+id/content"
-            android:layout_weight="0.02"
-            android:weightSum="1">
+            android:layout_weight="0.04"
+            android:weightSum="1"
+            android:id="@+id/bottomMenuLayout">
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:id="@+id/imageView"
-                android:src="@drawable/test" />
+                android:layout_height="match_parent"
+                android:id="@+id/profileImg"
+                android:src="@drawable/profile" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/controlImg"
+                android:src="@drawable/control" />
         </LinearLayout>
 
     </LinearLayout>

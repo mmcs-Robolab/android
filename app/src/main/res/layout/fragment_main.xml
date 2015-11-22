@@ -1,9 +1,94 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="mmcs.robolab.fragments.mainFragment">
+    android:layout_height="match_parent" tools:context="mmcs.robolab.fragments.MainFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/deviceLayout">
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/deviceImg"
+                android:src="@drawable/devices_clr"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="30dp"
+                android:layout_marginStart="30dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/deviceBtn"
+                android:layout_weight="0.03"
+                android:text="Устройства"
+                android:textColor="#1f1f1f"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_above="@+id/view"
+                android:layout_toRightOf="@+id/deviceImg"
+                android:layout_toEndOf="@+id/deviceImg" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#919191"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/deviceImg"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/view" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/robotLayout">
+
+            <ImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:id="@+id/robotImg"
+                android:layout_marginLeft="27dp"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/robot_clr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:id="@+id/robotBtn"
+                android:layout_weight="0.03"
+                android:text="Управление роботами"
+                android:textColor="#1f1f1f"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBottom="@+id/robotImg"
+                android:layout_toRightOf="@+id/robotImg"
+                android:layout_toEndOf="@+id/robotImg" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#919191"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/robotImg"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+    </LinearLayout>
 </FrameLayout>
