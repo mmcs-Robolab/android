@@ -4,14 +4,16 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import mmcs.robolab.Robolab;
+
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    static public String TABLE_USER = "users";
-    static public String COL_ID = "_id";
-    static public String COL_LOGIN = "name";
-    static public String COL_PASS = "pass";
-    static public String COL_LAST = "isLast";
+    final static public String TABLE_USER = "users";
+    final static public String COL_ID = "_id";
+    final static public String COL_LOGIN = "name";
+    final static public String COL_PASS = "pass";
+    final static public String COL_LAST = "isLast";
 
 
     static private DBHelper instance;
@@ -20,12 +22,11 @@ public class DBHelper extends SQLiteOpenHelper {
         super(context, "robolab", null, 1);
     }
 
-    static public int initialize(Context context) {
-        instance = new DBHelper(context);
-        return 0;
-    }
-
     static public DBHelper getInstance() {
+        if (instance == null) {
+            final Context context = Robolab.getAppContext();
+            instance = new DBHelper(context);
+        }
         return instance;
     }
 
