@@ -1,5 +1,7 @@
 package mmcs.robolab.activities;
 
+import android.support.annotation.NonNull;
+
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -45,13 +47,14 @@ public class AuthActivity extends AppCompatActivity {
 
     protected void signIn(final String login, final String pass) {
         new AsyncTask<Void, Void, Integer>() {
+
+            @NonNull
             protected Integer doInBackground(Void... e) {
                 Response auth = user.signIn(new Auth(login, pass));
                 return auth.code;
             }
 
             protected void onPostExecute(Integer result) {
-
                 if(result != 200) {
                     errText.setVisibility(View.VISIBLE);
                 } else {
@@ -59,7 +62,6 @@ public class AuthActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }
-
             }
         }.execute();
     }

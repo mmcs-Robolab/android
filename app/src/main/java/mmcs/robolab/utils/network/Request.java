@@ -87,7 +87,7 @@ public class Request {
             HttpResponse response = client.execute(req);
 
             String result = EntityUtils.toString(response.getEntity());
-            Integer respCode = response.getStatusLine().getStatusCode();
+            int respCode = response.getStatusLine().getStatusCode();
             return new Response(result, respCode);
 
         } catch (IOException e) {
