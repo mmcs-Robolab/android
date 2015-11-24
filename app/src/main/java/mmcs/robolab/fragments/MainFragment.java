@@ -1,8 +1,6 @@
 package mmcs.robolab.fragments;
 
-import android.app.Activity;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,14 +11,6 @@ import android.widget.RelativeLayout;
 
 import mmcs.robolab.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MainFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MainFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class MainFragment extends Fragment {
 
 
@@ -37,9 +27,6 @@ public class MainFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 view.setBackgroundColor(Color.parseColor("#cccccc"));
-
-
-
             }
         };
 
