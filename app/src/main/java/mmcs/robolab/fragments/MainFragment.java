@@ -10,9 +10,26 @@ import android.widget.RelativeLayout;
 
 
 import mmcs.robolab.R;
+import mmcs.robolab.activities.MainActivity;
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener {
 
+    @Override
+    public void onClick(View view) {
+        // todo: kill that
+        view.setBackgroundColor(Color.parseColor("#cccccc"));
+
+        switch (view.getId()) {
+            case R.id.deviceLayout:
+                MainActivity main = (MainActivity) getActivity();
+                if (main != null) {
+                    main.onDevicesClick();
+                }
+                break;
+            case R.id.robotLayout:
+                break;
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -23,16 +40,8 @@ public class MainFragment extends Fragment {
         RelativeLayout deviceLayout = (RelativeLayout) v.findViewById(R.id.deviceLayout);
         RelativeLayout robotLayout = (RelativeLayout) v.findViewById(R.id.robotLayout);
 
-        View.OnClickListener layoutClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                view.setBackgroundColor(Color.parseColor("#cccccc"));
-            }
-        };
-
-
-        deviceLayout.setOnClickListener(layoutClick);
-        robotLayout.setOnClickListener(layoutClick);
+        deviceLayout.setOnClickListener(this);
+        robotLayout.setOnClickListener(this);
         return v;
     }
 
