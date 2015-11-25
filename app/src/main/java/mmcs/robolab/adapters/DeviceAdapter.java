@@ -1,5 +1,6 @@
 package mmcs.robolab.adapters;
 
+import android.support.annotation.NonNull;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,14 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.List;
+
+import mmcs.robolab.R;
 import mmcs.robolab.models.devices.Device;
 
-public class DeviceAdapter extends ArrayAdapter {
+public class DeviceAdapter extends ArrayAdapter<Device> {
+    @NonNull
     private final Activity activity;
+    @NonNull
     private final List<Device> list;
 
-    public DeviceAdapter(Activity activity, List<Device> list) {
-        super(activity, android.R.layout.simple_list_item_1, list);
+    public DeviceAdapter(@NonNull Activity activity, @NonNull List<Device> list) {
+        super(activity, R.layout.device_item, list);
         this.activity = activity;
         this.list = list;
     }
@@ -25,23 +30,19 @@ public class DeviceAdapter extends ArrayAdapter {
         View rowView = convertView;
         ViewHolder view;
 
-        if(rowView == null)
-        {
-            // Get a new instance of the row layout view
+        if(rowView == null) {
             LayoutInflater inflater = activity.getLayoutInflater();
-            rowView = inflater.inflate(android.R.layout.simple_list_item_1, null);
+            rowView = inflater.inflate(R.layout.device_item, parent, false);
 
-            // Hold the view objects in an object, that way the don't need to be "re-  finded"
             view = new ViewHolder();
-            view.id = (TextView) rowView.findViewById(android.R.id.text1);
-            view.name = (TextView) rowView.findViewById(android.R.id.text1);
+            view.id = (TextView) rowView.findViewById(R.id.idTextView);
+            view.name = (TextView) rowView.findViewById(R.id.nameTextView);
 
             rowView.setTag(view);
         } else {
             view = (ViewHolder) rowView.getTag();
         }
 
-        /** Set data to your Views. */
         Device item = list.get(position);
         view.id.setText(String.valueOf(item.id));
         view.name.setText(item.name);
@@ -49,7 +50,7 @@ public class DeviceAdapter extends ArrayAdapter {
         return rowView;
     }
 
-    protected static class ViewHolder{
+    protected static class ViewHolder {
         protected TextView id;
         protected TextView name;
     }
