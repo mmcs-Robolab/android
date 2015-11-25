@@ -29,8 +29,8 @@ public class Devices {
 
     @Nullable
     static public Devices getDevices() {
+        final Response resp = Devices.getRaw();
         Devices devices = null;
-        Response resp = Devices.getRaw();
 
         if (resp.isSuccess()) {
             try {

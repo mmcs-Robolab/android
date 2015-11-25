@@ -59,11 +59,11 @@ public class Request {
     }
 
     @NonNull
-    public static Request create(String path, Method requestMethod) {
+    public static Request create(@NonNull String path, @NonNull Method requestMethod) {
         return new Request(path, requestMethod);
     }
 
-    public Request(String path, Method requestMethod) {
+    public Request(@NonNull String path, @NonNull Method requestMethod) {
         initCookieHandler();
 
         this.path = path;
@@ -71,7 +71,7 @@ public class Request {
     }
 
     @NonNull
-    public Request addParam(String name, String val) {
+    public Request addParam(@NonNull String name, @NonNull String val) {
         params.add(new BasicNameValuePair(name, val));
         return this;
     }

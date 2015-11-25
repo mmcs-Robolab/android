@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
-
 import mmcs.robolab.R;
 import mmcs.robolab.activities.MainActivity;
+
 
 public class MainFragment extends Fragment implements View.OnClickListener {
 
@@ -35,7 +35,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        View v = inflater.inflate(R.layout.fragment_main, null);
+        View v = inflater.inflate(R.layout.fragment_main, container, false);
 
         RelativeLayout deviceLayout = (RelativeLayout) v.findViewById(R.id.deviceLayout);
         RelativeLayout robotLayout = (RelativeLayout) v.findViewById(R.id.robotLayout);

@@ -3,6 +3,7 @@ package mmcs.robolab.activities;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import mmcs.robolab.R;
@@ -12,7 +13,7 @@ import mmcs.robolab.utils.network.Response;
 public class LogoActivity extends AppCompatActivity {
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_logo);
 
@@ -20,7 +21,8 @@ public class LogoActivity extends AppCompatActivity {
         getWorker(handler).start();
     }
 
-    private Runnable getRespondent(final Response resp) {
+    @NonNull
+    private Runnable getRespondent(@NonNull final Response resp) {
         return new Runnable() {
             @Override
             public void run() {
@@ -34,7 +36,7 @@ public class LogoActivity extends AppCompatActivity {
         };
     }
 
-    private Thread getWorker(final Handler handler) {
+    private Thread getWorker(@NonNull final Handler handler) {
         return new Thread() {
             @Override
             public void run() {
@@ -42,6 +44,7 @@ public class LogoActivity extends AppCompatActivity {
                 handler.post(LogoActivity.this.getRespondent(resp));
             }
 
+            @NonNull
             private Response doBackgroundWork() {
                 return User.getInstance().remember();
             }

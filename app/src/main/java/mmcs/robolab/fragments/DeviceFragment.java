@@ -30,8 +30,8 @@ public class DeviceFragment extends Fragment {
                 super.onPostExecute(devices);
 
                 if (devices != null) {
-                    Activity activity = DeviceFragment.this.getActivity();
-                    ListView listView = (ListView) activity.findViewById(R.id.deviceListView);
+                    final Activity activity = DeviceFragment.this.getActivity();
+                    final ListView listView = (ListView) activity.findViewById(R.id.deviceListView);
                     DeviceAdapter adapter = new DeviceAdapter(activity, devices.devices);
                     listView.setAdapter(adapter);
                 } else {

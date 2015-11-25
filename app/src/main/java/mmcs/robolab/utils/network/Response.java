@@ -1,6 +1,7 @@
 package mmcs.robolab.utils.network;
 
 
+import android.support.annotation.NonNull;
 
 public class Response {
     public String response;
@@ -11,6 +12,7 @@ public class Response {
         this.code = code;
     }
 
+    @NonNull
     public static Response getUndefined() {
         return new Response(null, 0);
     }

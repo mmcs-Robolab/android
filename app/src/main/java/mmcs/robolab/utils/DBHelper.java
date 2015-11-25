@@ -19,6 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     static private DBHelper instance;
 
     private DBHelper(Context context) {
+        // todo: extract to resource (app name)
         super(context, "robolab", null, 1);
     }
 

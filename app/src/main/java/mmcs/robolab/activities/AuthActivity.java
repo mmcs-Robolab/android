@@ -29,9 +29,9 @@ public class AuthActivity extends AppCompatActivity {
 
         singInBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String login = loginText.getText().toString();
-                String pass = passText.getText().toString();
-                signIn(login,pass);
+                final String login = loginText.getText().toString();
+                final String pass = passText.getText().toString();
+                signIn(login, pass);
             }
         });
     }
@@ -45,17 +45,16 @@ public class AuthActivity extends AppCompatActivity {
         this.processSignIn();
     }
 
-    protected void signIn(final String login, final String pass) {
-        new AsyncTask<Void, Void, Integer>() {
+    protected void signIn(@NonNull final String login, @NonNull final String pass) {
+        new AsyncTask<Void, Void, Response>() {
 
             @NonNull
-            protected Integer doInBackground(Void... e) {
-                Response auth = user.signIn(new Auth(login, pass));
-                return auth.code;
+            protected Response doInBackground(Void... e) {
+                return user.signIn(new Auth(login, pass));
             }
 
-            protected void onPostExecute(Integer result) {
-                if(result != 200) {
+            protected void onPostExecute(@NonNull Response result) {
+                if(result.isFailure()) {
                     errText.setVisibility(View.VISIBLE);
                 } else {
                     Intent intent = new Intent(AuthActivity.this, MainActivity.class);

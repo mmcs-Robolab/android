@@ -26,9 +26,9 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, final View convertView, final ViewGroup parent) {
         View rowView = convertView;
-        ViewHolder view;
+        final ViewHolder view;
 
         if(rowView == null) {
             LayoutInflater inflater = activity.getLayoutInflater();
@@ -43,7 +43,7 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
             view = (ViewHolder) rowView.getTag();
         }
 
-        Device item = list.get(position);
+        final Device item = list.get(position);
         view.id.setText(String.valueOf(item.id));
         view.name.setText(item.name);
 

@@ -34,12 +34,12 @@ public class User {
     }
 
     @NonNull
-    public Response signIn(final Auth data) {
+    public Response signIn(@Nullable final Auth data) {
         if (data == null) {
             return Response.getUndefined();
         }
 
-        Response resp = Request
+        final Response resp = Request
             .create("auth", Request.Method.POST)
             .addParam("login", data.login)
             .addParam("pass", data.pass)
@@ -54,7 +54,7 @@ public class User {
 
     @NonNull
     public Response logout() {
-        Response resp = Request
+        final Response resp = Request
             .create("auth/logout", Request.Method.POST)
             .execute();
         UserDB.resetLast();
