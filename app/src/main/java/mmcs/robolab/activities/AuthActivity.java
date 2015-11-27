@@ -16,24 +16,19 @@ import mmcs.robolab.models.user.User;
 import mmcs.robolab.models.user.Auth;
 
 
-public class AuthActivity extends AppCompatActivity {
+public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected User user;
     protected TextView errText;
+    protected TextView loginText;
+    protected TextView passText;
+    protected Button signInBtn;
 
-    protected void processSignIn() {
-        errText = (TextView) findViewById(R.id.errText);
-        final TextView loginText = (TextView) findViewById(R.id.loginText);
-        final TextView passText = (TextView) findViewById(R.id.passText);
-        final Button singInBtn = (Button) findViewById(R.id.signInBtn);
-
-        singInBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final String login = loginText.getText().toString();
-                final String pass = passText.getText().toString();
-                signIn(login, pass);
-            }
-        });
+    public void onClick(View v) {
+        final String login = loginText.getText().toString();
+        final String pass = passText.getText().toString();
+        // todo: remove last error msg (or use Toast, see @todo below)
+        signIn(new Auth(login, pass));
     }
 
     @Override
@@ -41,23 +36,29 @@ public class AuthActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
+        errText = (TextView) findViewById(R.id.errText); // todo: kill, use Toast
+        loginText = (TextView) findViewById(R.id.loginText);
+        passText = (TextView) findViewById(R.id.passText);
+        signInBtn = (Button) findViewById(R.id.signInBtn);
+
+        signInBtn.setOnClickListener(this);
         this.user = User.getInstance();
-        this.processSignIn();
     }
 
-    protected void signIn(@NonNull final String login, @NonNull final String pass) {
+    protected void signIn(@NonNull final Auth authData) {
         new AsyncTask<Void, Void, Response>() {
 
             @NonNull
             protected Response doInBackground(Void... e) {
-                return user.signIn(new Auth(login, pass));
+                return user.signIn(authData);
             }
 
             protected void onPostExecute(@NonNull Response result) {
                 if(result.isFailure()) {
+                    // todo: use Toast, choose msg depend on response code
                     errText.setVisibility(View.VISIBLE);
                 } else {
-                    Intent intent = new Intent(AuthActivity.this, MainActivity.class);
+                    final Intent intent = new Intent(AuthActivity.this, MainActivity.class);
                     startActivity(intent);
                     finish();
                 }

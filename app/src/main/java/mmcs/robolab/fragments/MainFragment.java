@@ -16,7 +16,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        // todo: kill that
+        // todo: check <|> kill that
         view.setBackgroundColor(Color.parseColor("#cccccc"));
 
         switch (view.getId()) {

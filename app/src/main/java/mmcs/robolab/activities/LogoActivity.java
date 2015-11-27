@@ -1,16 +1,18 @@
 package mmcs.robolab.activities;
 
+import android.support.annotation.NonNull;
 import android.content.Intent;
 import android.os.Handler;
-import android.os.SystemClock;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import mmcs.robolab.R;
 import mmcs.robolab.models.user.User;
 import mmcs.robolab.utils.network.Response;
 
-public class LogoActivity extends AppCompatActivity {
+public class LogoActivity extends AppCompatActivity implements Runnable {
+
+    @NonNull
+    Response resp = Response.getUndefined();
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -18,36 +20,19 @@ public class LogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_logo);
 
         final Handler handler = new Handler();
-        getWorker(handler).start();
-    }
-
-    @NonNull
-    private Runnable getRespondent(@NonNull final Response resp) {
-        return new Runnable() {
+        new Thread() {
             @Override
             public void run() {
-                Intent intent = new Intent(
-                    LogoActivity.this,
-                    resp.isSuccess() ? MainActivity.class : AuthActivity.class
-                );
-                startActivity(intent);
-                finish();
+                LogoActivity.this.resp = User.getInstance().remember();
+                handler.post(LogoActivity.this);
             }
-        };
+        }.start();
     }
 
-    private Thread getWorker(@NonNull final Handler handler) {
-        return new Thread() {
-            @Override
-            public void run() {
-                Response resp = doBackgroundWork();
-                handler.post(LogoActivity.this.getRespondent(resp));
-            }
-
-            @NonNull
-            private Response doBackgroundWork() {
-                return User.getInstance().remember();
-            }
-        };
+    @Override
+    public void run() {
+        final Class<?> activity = resp.isSuccess() ? MainActivity.class : AuthActivity.class;
+        startActivity(new Intent(this, activity));
+        finish();
     }
 }

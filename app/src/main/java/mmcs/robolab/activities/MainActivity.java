@@ -1,30 +1,27 @@
 package mmcs.robolab.activities;
 
-import android.app.FragmentTransaction;
+import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import mmcs.robolab.R;
 import mmcs.robolab.fragments.DeviceFragment;
 import mmcs.robolab.fragments.MainFragment;
 import mmcs.robolab.utils.Auth;
+import mmcs.robolab.utils.Transaction;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainFragment mainFrag;
+    private Transaction trans;
 
     public void onExitClick(View view) {
         Auth.logout(this);
     }
 
-    // todo: extract transaction helper
     public void onDevicesClick() {
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, new DeviceFragment());
-        transaction.addToBackStack(null);
-        transaction.commit();
+        final Fragment fragment = new DeviceFragment();
+        this.trans.replace(R.id.content, fragment, true);
     }
 
     @Override
@@ -32,24 +29,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mainFrag = new MainFragment();
+        this.trans = new Transaction(this);
+        // todo: check, current fragment?
+        final MainFragment mainFrag = new MainFragment();
+        trans.replace(R.id.content, mainFrag, false);
 
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.content, mainFrag);
-        transaction.commit();
-
-        ImageView controlImg = (ImageView) findViewById(R.id.controlImg);
-
+        // todo: seek and destroy (check & kill)
+        // ImageView controlImg = (ImageView) findViewById(R.id.controlImg);
         // controlImg.setImageResource(R.drawable.control_clr);
     }
 
-    // todo: extract transaction helper
+
     @Override
     public void onBackPressed() {
-        final int count = getFragmentManager().getBackStackEntryCount();
-        if (count > 0) {
-            getFragmentManager().popBackStack();
-        } else {
+        boolean empty = !trans.pop();
+        if (empty) {
             super.onBackPressed();
         }
     }

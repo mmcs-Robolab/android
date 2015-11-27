@@ -28,14 +28,19 @@ public class Devices {
     }
 
     @Nullable
+    static protected Devices parse(@NonNull String json) throws IOException{
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(json, Devices.class);
+    }
+
+    @Nullable
     static public Devices getDevices() {
         final Response resp = Devices.getRaw();
         Devices devices = null;
 
         if (resp.isSuccess()) {
             try {
-                ObjectMapper mapper = new ObjectMapper();
-                devices = mapper.readValue(resp.response, Devices.class);
+                devices = parse(resp.response);
             } catch (IOException e) {
                 // todo: handle
             }
