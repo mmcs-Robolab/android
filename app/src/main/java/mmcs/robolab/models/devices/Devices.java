@@ -15,7 +15,7 @@ import mmcs.robolab.utils.network.Response;
 public class Devices {
     // todo: move to resources
     // todo: fake stub path
-    static final protected String path = "auth/some";
+    static final protected String path = "device/list";
 
     @JsonProperty("devices")
     public List<Device> devices;

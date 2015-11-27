@@ -1,12 +1,18 @@
 package mmcs.robolab.adapters;
 
+import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.support.annotation.NonNull;
 import android.app.Activity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -35,23 +41,52 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
             rowView = inflater.inflate(R.layout.device_item, parent, false);
 
             view = new ViewHolder();
-            view.id = (TextView) rowView.findViewById(R.id.idTextView);
             view.name = (TextView) rowView.findViewById(R.id.nameTextView);
+            view.img = (ImageView) rowView.findViewById(R.id.deviceImg);
+            view.switchState = (Switch) rowView.findViewById(R.id.switchState);
+
+            final Device item = list.get(position);
+            view.name.setText(item.name);
+
+            if(item.type.equals("sensor")) {
+                view.img.setImageResource(R.drawable.sensor);
+                view.switchState.setClickable(false); // запретить нажимать как-нибудь
+            }
+
+            if(item.state == 1) {
+                view.switchState.setChecked(true);
+            } else {
+                view.switchState.setChecked(false);
+            }
+
+            View.OnClickListener switchClick = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(view.switchState.isChecked()) {
+                        item.state = 1;
+                        item.setDeviceState();
+
+                    } else {
+                        item.state = 0;
+                        item.setDeviceState();
+                    }
+                }
+            };
+
+            view.switchState.setOnClickListener(switchClick);
 
             rowView.setTag(view);
-        } else {
-            view = (ViewHolder) rowView.getTag();
         }
-
-        final Device item = list.get(position);
-        view.id.setText(String.valueOf(item.id));
-        view.name.setText(item.name);
-
         return rowView;
     }
 
+
+
+
+
     protected static class ViewHolder {
-        protected TextView id;
         protected TextView name;
+        protected ImageView img;
+        protected Switch switchState;
     }
 }

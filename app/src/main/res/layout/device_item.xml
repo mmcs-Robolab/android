@@ -7,28 +7,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/idTextView"
+        android:text="Name"
+        android:id="@+id/nameTextView"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="35dp"
         android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/deviceImg"
+        android:layout_toEndOf="@+id/deviceImg" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchState"
+        android:layout_alignTop="@+id/nameTextView"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/deviceImg"
+        android:src="@drawable/light"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/nameTextView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/nameTextView"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/idTextView"
-        android:layout_toEndOf="@+id/idTextView" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New CheckBox"
-        android:id="@+id/checkBox"
-        android:layout_alignBottom="@+id/nameTextView"
-        android:layout_toRightOf="@+id/nameTextView"
-        android:layout_toEndOf="@+id/nameTextView" />
 </RelativeLayout>
