@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import mmcs.robolab.R;
 import mmcs.robolab.utils.network.Response;
@@ -19,15 +22,16 @@ import mmcs.robolab.models.user.Auth;
 public class AuthActivity extends AppCompatActivity implements View.OnClickListener {
 
     protected User user;
-    protected TextView errText;
     protected TextView loginText;
     protected TextView passText;
     protected Button signInBtn;
+    protected ProgressBar authProgressBar;
 
     public void onClick(View v) {
+        // todo: move to preExecute
+        authProgressBar.setVisibility(View.VISIBLE);
         final String login = loginText.getText().toString();
         final String pass = passText.getText().toString();
-        // todo: remove last error msg (or use Toast, see @todo below)
         signIn(new Auth(login, pass));
     }
 
@@ -36,10 +40,10 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_auth);
 
-        errText = (TextView) findViewById(R.id.errText); // todo: kill, use Toast
         loginText = (TextView) findViewById(R.id.loginText);
         passText = (TextView) findViewById(R.id.passText);
         signInBtn = (Button) findViewById(R.id.signInBtn);
+        authProgressBar = (ProgressBar) findViewById(R.id.authProgressBar);
 
         signInBtn.setOnClickListener(this);
         this.user = User.getInstance();
@@ -55,8 +59,13 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
             protected void onPostExecute(@NonNull Response result) {
                 if(result.isFailure()) {
-                    // todo: use Toast, choose msg depend on response code
-                    errText.setVisibility(View.VISIBLE);
+                    // todo: extract (method, or maybe GUIHelper class
+                    authProgressBar.setVisibility(View.INVISIBLE);
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Неверный логин или пароль!",
+                            Toast.LENGTH_SHORT);
+                    toast.setGravity(Gravity.CENTER, 0, 0);
+                    toast.show();
                 } else {
                     final Intent intent = new Intent(AuthActivity.this, MainActivity.class);
                     startActivity(intent);
