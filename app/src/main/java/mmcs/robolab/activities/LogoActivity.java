@@ -3,6 +3,7 @@ package mmcs.robolab.activities;
 import android.support.annotation.NonNull;
 import android.content.Intent;
 import android.os.Handler;
+import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import mmcs.robolab.R;
@@ -29,7 +30,7 @@ public class LogoActivity extends AppCompatActivity implements Runnable {
         }.start();
     }
 
-    @Override
+    @Override @UiThread
     public void run() {
         final Class<?> activity = resp.isSuccess() ? MainActivity.class : AuthActivity.class;
         startActivity(new Intent(this, activity));

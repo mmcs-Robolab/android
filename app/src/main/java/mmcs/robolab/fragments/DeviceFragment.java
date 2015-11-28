@@ -1,6 +1,7 @@
 package mmcs.robolab.fragments;
 
 import android.support.annotation.Nullable;
+import android.support.annotation.UiThread;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import mmcs.robolab.models.devices.Devices;
 
 public class DeviceFragment extends Fragment {
 
-
+    @UiThread
     protected void fillDevices() {
         new AsyncTask<Void, Void, Devices>() {
             @Nullable

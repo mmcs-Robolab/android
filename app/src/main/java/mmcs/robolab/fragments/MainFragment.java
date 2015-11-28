@@ -1,4 +1,5 @@
 package mmcs.robolab.fragments;
+import android.support.annotation.UiThread;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,7 +15,7 @@ import mmcs.robolab.activities.MainActivity;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
 
-    @Override
+    @Override @UiThread
     public void onClick(View view) {
         // todo: check <|> kill that
         view.setBackgroundColor(Color.parseColor("#cccccc"));

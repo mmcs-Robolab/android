@@ -2,6 +2,7 @@ package mmcs.robolab.models.devices;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -20,7 +21,7 @@ public class Devices {
     @JsonProperty("devices")
     public List<Device> devices;
 
-    @NonNull
+    @NonNull @WorkerThread
     static protected Response getRaw() {
         return Request
             .create(Devices.path, Request.Method.GET)
@@ -33,7 +34,7 @@ public class Devices {
         return mapper.readValue(json, Devices.class);
     }
 
-    @Nullable
+    @Nullable @WorkerThread
     static public Devices getDevices() {
         final Response resp = Devices.getRaw();
         Devices devices = null;

@@ -5,11 +5,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 
 import mmcs.robolab.utils.DBHelper;
 
 class UserDB {
 
+    @WorkerThread
     static void saveUser(@NonNull final Auth user) {
         SQLiteDatabase db = DBHelper.getInstance().getWritableDatabase();
 
@@ -21,7 +23,7 @@ class UserDB {
         // todo: delete repetitions
     }
 
-    @Nullable
+    @Nullable @WorkerThread
     static Auth getUser(long id) {
         Auth user = null;
 

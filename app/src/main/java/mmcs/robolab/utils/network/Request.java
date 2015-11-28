@@ -1,6 +1,7 @@
 package mmcs.robolab.utils.network;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.WorkerThread;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -77,7 +78,7 @@ public class Request {
     }
 
     // warning: don't run in GUI thread
-    @NonNull
+    @NonNull @WorkerThread
     public Response execute() {
         try {
             String url = URL.buildUrl(path);

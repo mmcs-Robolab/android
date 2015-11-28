@@ -1,5 +1,6 @@
 package mmcs.robolab.activities;
 
+import android.support.annotation.UiThread;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         Auth.logout(this);
     }
 
+    @UiThread
     public void onDevicesClick() {
         final Fragment fragment = new DeviceFragment();
         this.trans.replace(R.id.content, fragment, true);
@@ -53,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
+    @Override @UiThread
     public void onBackPressed() {
         boolean empty = !trans.pop();
         if (empty) {
