@@ -7,7 +7,7 @@ public class Response {
     public String response;
     public int code;
 
-    Response(String response, int code) {
+    public Response(String response, int code) {
         this.response = response;
         this.code = code;
     }

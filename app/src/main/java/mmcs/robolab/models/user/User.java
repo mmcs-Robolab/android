@@ -3,7 +3,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
-
 import mmcs.robolab.utils.network.Request;
 import mmcs.robolab.utils.network.Response;
 
@@ -23,8 +22,8 @@ public class User {
     @Nullable @WorkerThread
     private UserInfo loadUserInfo() {
         final Response resp = Request
-                .create("auth/userInfo", Request.Method.GET)
-                .execute();
+            .create("auth/userInfo", Request.Method.GET)
+            .execute();
         return resp.isSuccess() ? UserInfo.parse(resp.response) : null;
     }
 
@@ -41,13 +40,12 @@ public class User {
     // try sign in last user
     @NonNull @WorkerThread
     public Response remember() {
-        final boolean signed = UserPref.getSigned();
-        final long userID = UserPref.getID();
-
-        if (signed) {
-            final Auth user = UserDB.getUser(userID);
-            if (user != null) {
-                return signIn(user);
+        String cookie = UserPref.getSession();
+        if (cookie != null) {
+            Request.setSession(cookie);
+            this.userInfo = loadUserInfo();
+            if (this.userInfo != null) {
+                return new Response(null, 200);
             }
         }
         return Response.getUndefined();
@@ -64,8 +62,11 @@ public class User {
         if (resp.isSuccess()) {
             this.userInfo = loadUserInfo();
             if (userInfo != null) {
-                UserPref.saveUser(userInfo.id, userInfo.login);
-                UserDB.saveUser(data);
+                final String cookie = Request.getSession();
+                UserPref.saveUser(userInfo.login);
+                if (cookie != null) {
+                    UserPref.setSession(cookie);
+                }
             }
         }
         return resp;

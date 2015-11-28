@@ -6,27 +6,25 @@ import android.support.annotation.WorkerThread;
 import android.content.SharedPreferences;
 
 import mmcs.robolab.Robolab;
+import mmcs.robolab.utils.network.Request;
 
 class UserPref {
     @NonNull static final String LAST_LOGIN = "userLogin";
-    @NonNull static final String LAST_ID = "userID";
-    @NonNull static final String IS_SIGNED = "isSigned";
+    @NonNull static final String SESSION_ID = "sessionID";
 
     @WorkerThread
     public static void logout() {
         SharedPreferences sPref = Robolab.getPreference();
         SharedPreferences.Editor editor = sPref.edit();
-        editor.putBoolean(IS_SIGNED, false);
+        editor.remove(SESSION_ID);
         editor.apply();
     }
 
     @WorkerThread
-    public static void saveUser(long id, @NonNull String login) {
+    public static void saveUser(final @NonNull String login) {
         SharedPreferences sPref = Robolab.getPreference();
         SharedPreferences.Editor editor = sPref.edit();
-        editor.putBoolean(IS_SIGNED, true);
         editor.putString(LAST_LOGIN, login);
-        editor.putLong(LAST_ID, id);
         editor.apply();
     }
 
@@ -36,16 +34,17 @@ class UserPref {
         return sPref.getString(LAST_LOGIN, null);
     }
 
-    @WorkerThread
-    public static long getID() {
+    @Nullable
+    public static String getSession() {
         SharedPreferences sPref = Robolab.getPreference();
-        return sPref.getLong(LAST_ID, -1);
+        return sPref.getString(SESSION_ID, null);
     }
 
-    @WorkerThread
-    public static boolean getSigned() {
+    public static void setSession(@NonNull final String session) {
         SharedPreferences sPref = Robolab.getPreference();
-        return sPref.getBoolean(IS_SIGNED, false);
+        SharedPreferences.Editor editor = sPref.edit();
+        editor.putString(SESSION_ID, session);
+        editor.apply();
     }
 
 }
