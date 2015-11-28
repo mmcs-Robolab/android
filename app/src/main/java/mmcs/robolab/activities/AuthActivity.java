@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -44,6 +45,19 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         passText = (TextView) findViewById(R.id.passText);
         signInBtn = (Button) findViewById(R.id.signInBtn);
         authProgressBar = (ProgressBar) findViewById(R.id.authProgressBar);
+
+        new AsyncTask<Void, Void, String>() {
+            @Nullable
+            protected String doInBackground(Void... e) {
+                return user.getLastLogin();
+            }
+            protected void onPostExecute(@Nullable String result) {
+                if (result != null) {
+                    loginText.setText(result);
+                }
+            }
+        }.execute();
+
 
         signInBtn.setOnClickListener(this);
         this.user = User.getInstance();

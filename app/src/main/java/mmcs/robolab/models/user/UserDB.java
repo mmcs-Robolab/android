@@ -10,48 +10,38 @@ import mmcs.robolab.utils.DBHelper;
 
 class UserDB {
 
-    static protected void resetLast(@NonNull SQLiteDatabase db) {
-        final ContentValues cv = new ContentValues();
-        cv.put(DBHelper.COL_LAST, 0);
-        db.update(DBHelper.TABLE_USER, cv, DBHelper.COL_LAST + " != 0", null);
-    }
-
-    static void resetLast() {
-        SQLiteDatabase db = DBHelper.getInstance().getWritableDatabase();
-        UserDB.resetLast(db);
-    }
-
     static void saveUser(@NonNull final Auth user) {
         SQLiteDatabase db = DBHelper.getInstance().getWritableDatabase();
-        UserDB.resetLast(db);
 
         final ContentValues cv = new ContentValues();
         cv.put(DBHelper.COL_LOGIN, user.login);
         cv.put(DBHelper.COL_PASS, user.pass);
-        cv.put(DBHelper.COL_LAST, 1);
 
         final long id = db.insert(DBHelper.TABLE_USER, null, cv);
         // todo: delete repetitions
     }
 
     @Nullable
-    static Auth getLast() {
+    static Auth getUser(long id) {
+        Auth user = null;
+
         SQLiteDatabase db = DBHelper.getInstance().getWritableDatabase();
+        final Cursor cur = db.query(
+                DBHelper.TABLE_USER, new String[] { DBHelper.COL_LOGIN, DBHelper.COL_PASS },
+                DBHelper.COL_ID + "= ?", new String[] { String.valueOf(id) },
+                null, null, null
+        );
 
-        final String selection = DBHelper.COL_LAST + " != 0";
-        final Cursor cur = db.query(DBHelper.TABLE_USER, null, selection, null, null, null, null);
-
-        Auth res = null;
         if (cur.moveToFirst()) {
-            int idLogin = cur.getColumnIndex(DBHelper.COL_LOGIN);
-            int idPass = cur.getColumnIndex(DBHelper.COL_PASS);
+            final int idPass = cur.getColumnIndex(DBHelper.COL_PASS);
+            final int idLogin = cur.getColumnIndex(DBHelper.COL_LOGIN);
 
-            String login = cur.getString(idLogin);
-            String pass = cur.getString(idPass);
-            res = new Auth(login, pass);
+            final String pass = cur.getString(idPass);
+            final String login = cur.getString(idLogin);
+            user = new Auth(login, pass);
         }
-
         cur.close();
-        return res;
+        return user;
     }
+
 }
