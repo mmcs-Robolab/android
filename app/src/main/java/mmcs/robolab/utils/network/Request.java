@@ -1,5 +1,8 @@
 package mmcs.robolab.utils.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.annotation.WorkerThread;
 
@@ -19,8 +22,9 @@ import org.apache.http.util.EntityUtils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
+
+import mmcs.robolab.Robolab;
 
 public class Request {
     protected static DefaultHttpClient client = null;
@@ -81,25 +85,33 @@ public class Request {
         return this;
     }
 
-    // warning: don't run in GUI thread
-    @NonNull @WorkerThread
-    public Response execute() {
-        try {
-            String url = URL.buildUrl(path);
-            HttpRequestBase req = (method == Method.POST)
-                    ? formPost(url)
-                    : formGet(url);
-            HttpResponse response = client.execute(req);
-
-            String result = EntityUtils.toString(response.getEntity());
-            int respCode = response.getStatusLine().getStatusCode();
-            return new Response(result, respCode);
-
-        } catch (IOException e) {
-            return Response.getUndefined();
-        }
+    public static boolean isOnline() {
+        Context context = Robolab.getAppContext();
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
     }
 
+
+    @NonNull @WorkerThread
+    public Response execute() {
+        if (isOnline()) {
+            try {
+                String url = URL.buildUrl(path);
+                HttpRequestBase req = (method == Method.POST)
+                        ? formPost(url)
+                        : formGet(url);
+                HttpResponse response = client.execute(req);
+
+                String result = EntityUtils.toString(response.getEntity());
+                int respCode = response.getStatusLine().getStatusCode();
+                return new Response(result, respCode);
+
+            } catch (IOException e) { /* empty block */}
+        }
+        return Response.getUndefined();
+    }
 
     public static String getSession() {
         if (client != null) {
@@ -108,7 +120,6 @@ public class Request {
         }
         return null;
     }
-
 
     public static void setSession(String token) {
         initCookieHandler();

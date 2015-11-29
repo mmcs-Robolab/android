@@ -6,10 +6,8 @@ import android.app.FragmentTransaction;
 import android.support.annotation.NonNull;
 
 public class Transaction {
-    @NonNull
-    Activity activity;
-    @NonNull
-    FragmentManager manager;
+    @NonNull Activity activity;
+    @NonNull FragmentManager manager;
 
     public Transaction(@NonNull Activity activity) {
         this.activity = activity;
