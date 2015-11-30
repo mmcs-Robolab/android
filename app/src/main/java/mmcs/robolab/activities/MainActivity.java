@@ -1,5 +1,6 @@
 package mmcs.robolab.activities;
 
+import android.content.IntentFilter;
 import android.support.annotation.UiThread;
 import android.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +14,8 @@ import mmcs.robolab.fragments.DeviceFragment;
 import mmcs.robolab.fragments.MainFragment;
 import mmcs.robolab.models.user.User;
 import mmcs.robolab.models.user.UserInfo;
-import mmcs.robolab.utils.Auth;
+import mmcs.robolab.recievers.NetworkReceiver;
+import mmcs.robolab.utils.GUIHelper;
 import mmcs.robolab.utils.Transaction;
 
 public class MainActivity extends AppCompatActivity {
@@ -21,12 +23,25 @@ public class MainActivity extends AppCompatActivity {
     private Transaction trans;
     private User user;
     private UserInfo userInfo;
+    private NetworkReceiver receiver = new NetworkReceiver();
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        this.unregisterReceiver(receiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        this.registerReceiver(receiver, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+    }
 
     private ImageView curMenuImg;
 
 
     public void onExitClick(View view) {
-        Auth.logout(this);
+        GUIHelper.logout(this);
     }
 
     @UiThread

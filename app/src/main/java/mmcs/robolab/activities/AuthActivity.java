@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import mmcs.robolab.R;
+import mmcs.robolab.utils.GUIHelper;
 import mmcs.robolab.utils.network.Response;
 import mmcs.robolab.models.user.User;
 import mmcs.robolab.models.user.Auth;
@@ -65,6 +66,16 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
         this.user = User.getInstance();
     }
 
+    @NonNull
+    protected String createMessage(Response resp) {
+        switch (resp.code) {
+            // todo: move to resources
+            case 0: return "Network connection missed";
+            case 418: return "Invalid login or pass";
+            default: return "Service isn't available";
+        }
+    }
+
     @UiThread
     protected void signIn(@NonNull final Auth authData) {
         new AsyncTask<Void, Void, Response>() {
@@ -76,13 +87,8 @@ public class AuthActivity extends AppCompatActivity implements View.OnClickListe
 
             protected void onPostExecute(@NonNull Response result) {
                 if(result.isFailure()) {
-                    // todo: extract (method, or maybe GUIHelper class
                     authProgressBar.setVisibility(View.INVISIBLE);
-                    Toast toast = Toast.makeText(getApplicationContext(),
-                            "Неверный логин или пароль!",
-                            Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+                    GUIHelper.message(createMessage(result));
                 } else {
                     final Intent intent = new Intent(AuthActivity.this, MainActivity.class);
                     startActivity(intent);

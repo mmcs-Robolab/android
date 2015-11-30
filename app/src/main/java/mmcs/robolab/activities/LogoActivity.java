@@ -1,9 +1,9 @@
 package mmcs.robolab.activities;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.UiThread;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.annotation.UiThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import mmcs.robolab.R;
