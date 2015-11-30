@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#05c9ef">
+    android:background="#4aaad2">
 
     <TextView
         android:layout_width="wrap_content"
@@ -10,11 +10,13 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Name"
         android:id="@+id/nameTextView"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/deviceImg"
-        android:layout_toEndOf="@+id/deviceImg" />
+        android:layout_toEndOf="@+id/deviceImg"
+        android:textColor="#fff" />
 
     <Switch
         android:layout_width="wrap_content"
@@ -29,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/deviceImg"
-        android:src="@drawable/light"
+        android:src="@drawable/light_white"
         android:layout_marginLeft="5dp"
         android:layout_alignBottom="@+id/nameTextView"
         android:layout_alignParentLeft="true"

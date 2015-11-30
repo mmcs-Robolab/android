@@ -12,10 +12,10 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="#43484c"
             android:id="@+id/topLayout"
-            android:layout_weight="0.11">
+            android:layout_weight="0.12">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,56 +47,45 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="432dp"
+            android:layout_height="0dp"
             android:layout_below="@+id/roleText"
             android:layout_alignRight="@+id/nameText"
             android:layout_alignEnd="@+id/nameText"
-            android:layout_weight="0.85"
+            android:layout_weight="0.79"
             android:id="@+id/content"
-            android:background="#05c9ef"></FrameLayout>
+            android:background="#4aaad2"></FrameLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.04"
+            android:layout_height="0dp"
+            android:layout_weight="0.09"
             android:background="#3797bf">
-            <View
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="#000000"
-                android:id="@+id/view3"
-                android:layout_marginTop="1dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_weight="0.04"
                 android:weightSum="1"
                 android:id="@+id/bottomMenuLayout"
-                android:background="#3797bf">
+                android:background="#43484c"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true">
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/profileImg"
-                    android:src="@drawable/profile" />
+                    android:src="@drawable/profile_white" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:id="@+id/controlImg"
-                    android:src="@drawable/control" />
+                    android:src="@drawable/control_white"
+                    android:onClick="onControlImgClick" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:id="@+id/exitBtn"
-                    android:src="@drawable/control"
-                    android:onClick="onExitClick" />
             </LinearLayout>
         </RelativeLayout>
 

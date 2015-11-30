@@ -46,10 +46,10 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
             view.switchState = (Switch) rowView.findViewById(R.id.switchState);
 
             final Device item = list.get(position);
-            view.name.setText(item.name);
+            view.name.setText(item.name.toUpperCase());
 
             if(item.type.equals("sensor")) {
-                view.img.setImageResource(R.drawable.sensor);
+                view.img.setImageResource(R.drawable.sensor_white);
                 view.switchState.setClickable(false); // запретить нажимать как-нибудь
             }
 
