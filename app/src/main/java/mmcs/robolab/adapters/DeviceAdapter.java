@@ -24,12 +24,39 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
     @NonNull
     private final List<Device> list;
 
+    static class CustomSwitchListener extends AsyncTask<Void, Void, Response> implements View.OnClickListener {
+        ViewHolder view;
+        Device item;
+        boolean lastState;
+
+        public CustomSwitchListener(ViewHolder view, Device item) {
+            this.view = view;
+            this.item = item;
+        }
+
+        @Override public void onClick(View v) {
+            lastState = view.switchState.isChecked();
+            item.state = (lastState) ? Device.ON : Device.OFF;
+            execute();
+        }
+
+        @NonNull protected Response doInBackground(Void... e) {
+            return item.setDeviceState();
+        }
+
+        protected void onPostExecute(@NonNull Response response) {
+            if (response.isFailure()) {
+                view.switchState.setChecked(!lastState);
+                GUIHelper.message(GUIHelper.createMessage(response));
+            }
+        }
+    }
+
     public DeviceAdapter(@NonNull Activity activity, @NonNull List<Device> list) {
         super(activity, R.layout.device_item, list);
         this.activity = activity;
         this.list = list;
     }
-
 
     protected void initItem(int position, final ViewHolder view) {
         final Device item = list.get(position);
@@ -40,27 +67,7 @@ public class DeviceAdapter extends ArrayAdapter<Device> {
             view.img.setImageResource(R.drawable.sensor_white);
             view.switchState.setClickable(false); // запретить нажимать как-нибудь
         }
-
-        view.switchState.setOnClickListener(new View.OnClickListener() {
-            @Override public void onClick(View v) {
-                final boolean state = view.switchState.isChecked();
-                item.state = (state) ? Device.ON : Device.OFF;
-
-                new AsyncTask<Void, Void, Response>() {
-                    @NonNull
-                    protected Response doInBackground(Void... e) {
-                        return item.setDeviceState();
-                    }
-                    protected void onPostExecute(@NonNull Response response) {
-                        if (response.isFailure()) {
-                            view.switchState.setChecked(!state);
-                            GUIHelper.message(GUIHelper.createMessage(response));
-                        }
-                    }
-                }.execute();
-            }
-        });
-
+        view.switchState.setOnClickListener(new CustomSwitchListener(view, item));
     }
 
     @Override
