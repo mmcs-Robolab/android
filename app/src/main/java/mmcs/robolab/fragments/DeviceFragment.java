@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,22 @@ import mmcs.robolab.adapters.DeviceAdapter;
 import mmcs.robolab.models.devices.Devices;
 
 
-public class DeviceFragment extends Fragment {
+public class DeviceFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+
+    SwipeRefreshLayout swipeLayout;
+
+    @UiThread
+    void fillDeviceLayout(@Nullable Devices devices) {
+        if (devices != null) {
+            final Activity activity = DeviceFragment.this.getActivity();
+            final ListView listView = (ListView) activity.findViewById(R.id.deviceListView);
+            DeviceAdapter adapter = new DeviceAdapter(activity, devices.devices);
+            listView.setAdapter(adapter);
+        } else {
+            // todo: handle this
+        }
+    }
+
 
     @UiThread
     protected void fillDevices() {
@@ -29,15 +45,8 @@ public class DeviceFragment extends Fragment {
             @Override
             protected void onPostExecute(@Nullable Devices devices) {
                 super.onPostExecute(devices);
-
-                if (devices != null) {
-                    final Activity activity = DeviceFragment.this.getActivity();
-                    final ListView listView = (ListView) activity.findViewById(R.id.deviceListView);
-                    DeviceAdapter adapter = new DeviceAdapter(activity, devices.devices);
-                    listView.setAdapter(adapter);
-                } else {
-                    // todo: handle this
-                }
+                fillDeviceLayout(devices);
+                swipeLayout.setRefreshing(false);
             }
         }.execute();
     }
@@ -48,10 +57,15 @@ public class DeviceFragment extends Fragment {
                                 Bundle savedInstanceState)
     {
         View v = inflater.inflate(R.layout.fragment_device, container, false);
+        swipeLayout = (SwipeRefreshLayout) v.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+
         fillDevices();
         return v;
     }
 
-
-
+    @Override
+    public void onRefresh() {
+        fillDevices();
+    }
 }
