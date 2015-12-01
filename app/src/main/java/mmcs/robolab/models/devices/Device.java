@@ -2,6 +2,7 @@ package mmcs.robolab.models.devices;
 
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
+import android.support.annotation.WorkerThread;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
@@ -9,6 +10,11 @@ import mmcs.robolab.utils.network.Request;
 import mmcs.robolab.utils.network.Response;
 
 public class Device {
+    public static final int ON = 1;
+    public static final int OFF = 0;
+
+
+
     @JsonProperty("id")
     public long id = -1;
 
@@ -24,27 +30,18 @@ public class Device {
 
     Response getStatistic() {
         // todo: just stub
-        final Response resp = Request
+        return Request
             .create("device/stat", Request.Method.GET)
             .addParam("id", String.valueOf(id))
             .execute();
-        return resp;
     }
 
-    public void setDeviceState() {
-        new AsyncTask<Void, Void, Void>() {
-            @Nullable
-            protected Void doInBackground(Void... e) {
-                Request.create("device/setDeviceState", Request.Method.POST)
-                        .addParam("id", String.valueOf(id))
-                        .addParam("state", String.valueOf(state))
-                        .execute();
-
-                return null;
-            }
-
-        }.execute();
-
+    @WorkerThread
+    public Response setDeviceState() {
+        return Request.create("device/setDeviceState", Request.Method.POST)
+                .addParam("id", String.valueOf(id))
+                .addParam("state", String.valueOf(state))
+                .execute();
     }
 
 }

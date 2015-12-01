@@ -96,20 +96,22 @@ public class Request {
 
     @NonNull @WorkerThread
     public Response execute() {
-        if (isOnline()) {
-            try {
-                String url = URL.buildUrl(path);
-                HttpRequestBase req = (method == Method.POST)
-                        ? formPost(url)
-                        : formGet(url);
-                HttpResponse response = client.execute(req);
-
-                String result = EntityUtils.toString(response.getEntity());
-                int respCode = response.getStatusLine().getStatusCode();
-                return new Response(result, respCode);
-
-            } catch (IOException e) { /* empty block */}
+        if (!isOnline()) {
+            return Response.getConnMissed();
         }
+        try {
+            String url = URL.buildUrl(path);
+            HttpRequestBase req = (method == Method.POST)
+                    ? formPost(url)
+                    : formGet(url);
+            HttpResponse response = client.execute(req);
+
+            String result = EntityUtils.toString(response.getEntity());
+            int respCode = response.getStatusLine().getStatusCode();
+            return new Response(result, respCode);
+
+        } catch (IOException e) { /* empty block */}
+
         return Response.getUndefined();
     }
 

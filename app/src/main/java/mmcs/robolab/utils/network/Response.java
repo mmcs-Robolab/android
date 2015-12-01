@@ -4,6 +4,15 @@ package mmcs.robolab.utils.network;
 import android.support.annotation.NonNull;
 
 public class Response {
+    public static final int CONNECTION_MISSED = -1;
+    public static final int UNKNOWN_ERROR = 0;
+    public static final int OK = 200;
+    public static final int BAD_AUTH = 418;
+    public static final int INTERNAL_SERVER_ERROR = 500;
+
+
+
+
     public String response;
     public int code;
 
@@ -14,7 +23,12 @@ public class Response {
 
     @NonNull
     public static Response getUndefined() {
-        return new Response(null, 0);
+        return new Response(null, UNKNOWN_ERROR);
+    }
+
+    @NonNull
+    public static Response getConnMissed() {
+        return new Response(null, CONNECTION_MISSED);
     }
 
     // ====================
@@ -22,12 +36,9 @@ public class Response {
     // ====================
 
     public boolean isSuccess() {
-        return code == 200;
+        return code == OK;
     }
     public boolean isFailure() {
-        return code != 200;
-    }
-    public boolean isUndefined() {
-        return code == 0;
+        return code != OK;
     }
 }

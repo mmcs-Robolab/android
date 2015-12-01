@@ -10,8 +10,9 @@ import android.widget.Toast;
 import mmcs.robolab.Robolab;
 import mmcs.robolab.activities.AuthActivity;
 import mmcs.robolab.models.user.User;
+import mmcs.robolab.utils.network.Response;
 
-// todo: check! - inline into MainActivity
+
 public class GUIHelper {
     public static void logout(@NonNull final Activity cur) {
         new AsyncTask<Void, Void, Void>() {
@@ -30,5 +31,17 @@ public class GUIHelper {
         Toast toast = Toast.makeText(Robolab.getAppContext(), msg, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+
+    @NonNull
+    public static String createMessage(Response resp) {
+        switch (resp.code) {
+            // todo: move to resources
+            case Response.CONNECTION_MISSED: return "Network connection missed";
+            case Response.UNKNOWN_ERROR: return "Server doesn't respond";
+            case Response.BAD_AUTH: return "Invalid login or pass";
+            default: return "Service isn't available";
+        }
     }
 }
