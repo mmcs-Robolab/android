@@ -12,6 +12,8 @@ import android.widget.TextView;
 import mmcs.robolab.R;
 import mmcs.robolab.fragments.DeviceFragment;
 import mmcs.robolab.fragments.MainFragment;
+import mmcs.robolab.fragments.PropertiesFragment;
+import mmcs.robolab.fragments.RobotsFragment;
 import mmcs.robolab.models.user.User;
 import mmcs.robolab.models.user.UserInfo;
 import mmcs.robolab.recievers.NetworkReceiver;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView curMenuImg;
 
 
-    public void onExitClick(View view) {
+    public void onExitClick() {
         GUIHelper.logout(this);
     }
 
@@ -51,13 +53,39 @@ public class MainActivity extends AppCompatActivity {
         this.trans.replace(R.id.content, fragment, true);
     }
 
+    public void onRobotsClick() {
+        curMenuImg.setImageResource(R.drawable.control_white);
+        final Fragment fragment = new RobotsFragment();
+        this.trans.replace(R.id.content, fragment, true);
+    }
+
+//    public void onRobotItemClick() {
+//        curMenuImg.setImageResource(R.drawable.control_white);
+//        final Fragment fragment = new RobotsFragment();
+//        this.trans.replace(R.id.content, fragment, true);
+//    }
+
+
     public void onControlImgClick(View v) {
         final Fragment fragment = new MainFragment();
         this.trans.replace(R.id.content, fragment, true);
 
         ImageView controlImg = (ImageView) findViewById(R.id.controlImg);
+        ImageView profileImg = (ImageView) findViewById(R.id.profileImg);
+        profileImg.setImageResource(R.drawable.profile_white);
         curMenuImg = controlImg;
         curMenuImg.setImageResource(R.drawable.control_active);
+    }
+
+    public void onProfileImgClick(View v) {
+        final Fragment fragment = new PropertiesFragment();
+        this.trans.replace(R.id.content, fragment, true);
+
+        ImageView profileImg = (ImageView) findViewById(R.id.profileImg);
+        ImageView controlImg = (ImageView) findViewById(R.id.controlImg);
+        controlImg.setImageResource(R.drawable.control_white);
+        curMenuImg = profileImg;
+        curMenuImg.setImageResource(R.drawable.profile_clr);
     }
 
     @Override

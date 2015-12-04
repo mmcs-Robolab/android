@@ -20,14 +20,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         // todo: check <|> kill that
         view.setBackgroundColor(Color.parseColor("#cccccc"));
 
+        MainActivity main = (MainActivity) getActivity();
         switch (view.getId()) {
             case R.id.deviceLayout:
-                MainActivity main = (MainActivity) getActivity();
                 if (main != null) {
                     main.onDevicesClick();
                 }
                 break;
             case R.id.robotLayout:
+                if (main != null) {
+                    main.onRobotsClick();
+                }
                 break;
         }
     }

@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mmcs.robolab.fragments.RobotControlFragment"
+    android:background="#4aaad2">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/upBtn"
+        android:layout_gravity="center"
+        android:src="@drawable/up_arrow_control"
+        android:layout_marginBottom="30dp"
+        android:layout_above="@+id/downBtn"
+        android:layout_alignLeft="@+id/downBtn"
+        android:layout_alignStart="@+id/downBtn" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leftBtn"
+        android:layout_gravity="left|bottom"
+        android:src="@drawable/left_arrow_control"
+        android:layout_alignTop="@+id/downBtn"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/downBtn"
+        android:layout_gravity="center_horizontal|bottom"
+        android:src="@drawable/down_arrow_control"
+        android:layout_alignTop="@+id/rightBtn"
+        android:layout_centerHorizontal="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rightBtn"
+        android:layout_gravity="right|bottom"
+        android:src="@drawable/right_arrow_control"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="34dp"
+        android:layout_marginEnd="34dp"
+        android:layout_marginBottom="41dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Робот:"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/leftBtn"
+        android:layout_alignStart="@+id/leftBtn"
+        android:layout_marginTop="32dp"
+        android:textColor="#fff"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Робот 1"
+        android:layout_marginLeft="15dp"
+        android:id="@+id/robotNameView"
+        android:textColor="#228228"
+        android:layout_alignTop="@+id/textView"
+        android:layout_toRightOf="@+id/textView"
+        android:layout_toEndOf="@+id/textView"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Координаты:"
+        android:id="@+id/coordText"
+        android:layout_gravity="center_horizontal|top"
+        android:textColor="#fff"
+        android:layout_alignTop="@+id/coordinatesView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView"
+        android:textSize="25dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Х:12 Y:45"
+        android:id="@+id/coordinatesView"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="#228228"
+        android:layout_below="@+id/robotNameView"
+        android:layout_toRightOf="@+id/coordText"
+        android:layout_toEndOf="@+id/coordText"
+        android:textSize="25dp" />
+
+</RelativeLayout>

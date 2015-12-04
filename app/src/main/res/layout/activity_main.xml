@@ -76,12 +76,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:id="@+id/profileImg"
-                    android:src="@drawable/profile_white" />
+                    android:layout_marginLeft="50dp"
+                    android:src="@drawable/profile_white"
+                    android:onClick="onProfileImgClick" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="130dp"
                     android:id="@+id/controlImg"
                     android:src="@drawable/control_white"
                     android:onClick="onControlImgClick" />
