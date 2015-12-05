@@ -9,11 +9,10 @@ import mmcs.robolab.Robolab;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    final static public String TABLE_USER = "users";
+    final static public String TABLE_USER = "preferences";
     final static public String COL_ID = "_id";
-    final static public String COL_LOGIN = "name";
-    final static public String COL_PASS = "pass";
-
+    final static public String COL_LOGIN = "login";
+    final static public String COL_AUTO_LOGIN = "auto_login";
 
     static private DBHelper instance;
 
@@ -35,7 +34,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("create table " + TABLE_USER + " ("
                 + COL_ID + " integer primary key autoincrement,"
                 + COL_LOGIN + " text,"
-                + COL_PASS + " text"
+                + COL_AUTO_LOGIN + " text"
                 + ");");
     }
 

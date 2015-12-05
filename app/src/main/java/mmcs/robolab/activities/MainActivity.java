@@ -13,6 +13,7 @@ import mmcs.robolab.R;
 import mmcs.robolab.fragments.DeviceFragment;
 import mmcs.robolab.fragments.MainFragment;
 import mmcs.robolab.fragments.PropertiesFragment;
+import mmcs.robolab.fragments.RobotControlFragment;
 import mmcs.robolab.fragments.RobotsFragment;
 import mmcs.robolab.models.user.User;
 import mmcs.robolab.models.user.UserInfo;
@@ -59,11 +60,20 @@ public class MainActivity extends AppCompatActivity {
         this.trans.replace(R.id.content, fragment, true);
     }
 
-//    public void onRobotItemClick() {
-//        curMenuImg.setImageResource(R.drawable.control_white);
-//        final Fragment fragment = new RobotsFragment();
-//        this.trans.replace(R.id.content, fragment, true);
-//    }
+    public void onRobotItemClick(long id, String name, int x, int y) {
+        curMenuImg.setImageResource(R.drawable.control_white);
+
+        Bundle args = new Bundle();
+        args.putLong("id", id);
+        args.putString("name", name);
+        args.putInt("x", x);
+        args.putInt("y", y);
+
+        final Fragment fragment = new RobotControlFragment();
+
+        fragment.setArguments(args);
+        this.trans.replace(R.id.content, fragment, true);
+    }
 
 
     public void onControlImgClick(View v) {

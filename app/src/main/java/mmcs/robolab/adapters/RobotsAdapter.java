@@ -25,13 +25,13 @@ import mmcs.robolab.utils.network.Response;
 
 public class RobotsAdapter extends ArrayAdapter<Robot> {
     @NonNull
-    private final Activity activity;
+    private final MainActivity activity;
     @NonNull
     private final List<Robot> list;
 
     public RobotsAdapter(@NonNull Activity activity, @NonNull List<Robot> list) {
         super(activity, R.layout.robot_item, list);
-        this.activity = activity;
+        this.activity = (MainActivity) activity;
         this.list = list;
     }
 
@@ -43,7 +43,7 @@ public class RobotsAdapter extends ArrayAdapter<Robot> {
         view.robotLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                activity.onRobotItemClick(item.id, item.name, item.x, item.y);
             }
         });
 

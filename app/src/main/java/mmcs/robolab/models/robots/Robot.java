@@ -24,14 +24,14 @@ public class Robot {
 
 
     @WorkerThread
-    public static Response setX(int id, int state) {
+    public static Response setX(long id, int state) {
         return Request.create("device/setX", Request.Method.POST)
                 .addParam("id", String.valueOf(id))
                 .addParam("state", String.valueOf(state))
                 .execute();
     }
 
-    public static Response setY(int id, int state) {
+    public static Response setY(long id, int state) {
         return Request.create("device/setY", Request.Method.POST)
                 .addParam("id", String.valueOf(id))
                 .addParam("state", String.valueOf(state))

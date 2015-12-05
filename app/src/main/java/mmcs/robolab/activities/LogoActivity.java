@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import mmcs.robolab.R;
+import mmcs.robolab.models.preferences.Preferences;
 import mmcs.robolab.models.user.User;
 import mmcs.robolab.utils.network.Response;
 
@@ -14,6 +15,7 @@ public class LogoActivity extends AppCompatActivity implements Runnable {
 
     @NonNull
     Response resp = Response.getUndefined();
+
 
     @Override
     public void onCreate(final Bundle savedInstanceState) {
@@ -24,7 +26,14 @@ public class LogoActivity extends AppCompatActivity implements Runnable {
         new Thread() {
             @Override
             public void run() {
-                LogoActivity.this.resp = User.getInstance().remember();
+
+                User user = User.getInstance();
+                Preferences prefs = user.lastLoginPrefs();
+
+                if(prefs != null && prefs.autoLog != 0) {
+                    LogoActivity.this.resp = user.remember();
+                }
+
                 handler.post(LogoActivity.this);
             }
         }.start();

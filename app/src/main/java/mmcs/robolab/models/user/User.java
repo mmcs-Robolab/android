@@ -3,6 +3,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
+import mmcs.robolab.models.preferences.Preferences;
 import mmcs.robolab.utils.network.Request;
 import mmcs.robolab.utils.network.Response;
 
@@ -13,6 +14,8 @@ public class User {
     private UserInfo userInfo = null;
 
     private User() {}
+
+    public Preferences prefs;
 
     @NonNull
     public static User getInstance() {
@@ -61,6 +64,7 @@ public class User {
 
         if (resp.isSuccess()) {
             this.userInfo = loadUserInfo();
+
             if (userInfo != null) {
                 final String cookie = Request.getSession();
                 UserPref.saveUser(userInfo.login);
@@ -84,6 +88,25 @@ public class User {
     @Nullable
     public UserInfo getUserInfo() {
         return this.userInfo;
+    }
+
+//    public Preferences getPrefs() {
+//        return prefs.getPreferences(this.userInfo.id);
+//    }
+//
+//    public void setPrefs(Preferences newPrefs) {
+//        prefs = newPrefs;
+//        prefs.setPreferences(this.userInfo.id, prefs);
+//    }
+
+    public Preferences lastLoginPrefs() {
+
+        String login = this.getLastLogin();
+
+        prefs = (login != null) ? Preferences.getPreferences(login)
+                : Preferences.getDefault();
+
+        return prefs;
     }
 
 }

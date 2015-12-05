@@ -28,7 +28,7 @@ import mmcs.robolab.utils.network.Response;
 
 public class RobotControlFragment extends Fragment implements View.OnClickListener {
 
-    private int id;
+    private long id;
     private int x;
     private int y;
 
@@ -40,14 +40,15 @@ public class RobotControlFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_robot_control, container, false);
-        robotName = (TextView) v.findViewById(R.id.nameTextView);
+        robotName = (TextView) v.findViewById(R.id.robotNameView);
         coordinates = (TextView) v.findViewById(R.id.coordinatesView);
 
         Bundle args = this.getArguments();
-        id = args.getInt("id", -1);
+        id = args.getLong("id", -1);
         x = args.getInt("x", 0);
         y = args.getInt("y", 0);
-        robotName.setText(args.getString("name"));
+        String name = args.getString("name");
+        robotName.setText(name);
         coordinates.setText("X: " + x + " Y: " + y);
 
         ImageButton upBtn = (ImageButton) v.findViewById(R.id.upBtn);
